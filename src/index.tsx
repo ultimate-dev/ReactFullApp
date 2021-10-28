@@ -1,17 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
+// Store
+import store from "./store/store";
+// App
+import App from "./app";
+// Components
+import Loading from "./components/Loading";
+// Styles
+import "animate.css";
+import "aos/dist/aos.css";
+import "react-multi-carousel/lib/styles.css";
+import "./assets/css/output.css";
+import "./assets/css/styles.css";
 
+/**
+ * Render
+ */
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <React.Suspense fallback={<Loading.Fallback />}>
+      <Provider store={store}>
+        <Router>
+          <Switch>
+            <App />
+          </Switch>
+        </Router>
+      </Provider>
+    </React.Suspense>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
